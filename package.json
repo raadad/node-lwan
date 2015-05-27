@@ -1,0 +1,20 @@
+{
+  "name": "node-lwan",
+  "version": "1.0.0",
+  "description": "Experimental alternative to node http",
+  "main": "hook.js",
+  "scripts": {
+    "install": "./make.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raadad/node-lwan.git"
+  },
+  "author": "Raadad Elsleiman",
+  "license": "MIT",
+  "gypfile": true,
+  "bugs": {
+    "url": "https://github.com/raadad/node-lwan/issues"
+  },
+  "homepage": "https://github.com/raadad/node-lwan"
+}
