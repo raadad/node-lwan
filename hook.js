@@ -1,6 +1,11 @@
 // hello.js
 var addon = require('./build/Release/hook');
 
-console.log(addon.startServer(
-    { testa:"wooohoo" }
-)); // 'world'
+var xtr = function (req, res) {
+    console.log("ssInternal");
+    return "LOLOL";
+};
+
+var x = addon.startServer(xtr);
+
+console.log(x);
