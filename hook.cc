@@ -1,6 +1,7 @@
 // hello.cc
 #include <node.h>
 #include <v8.h>
+#include <cstdlib>
 
 #include "./lwan/common/lwan.h"
 #include "./lwan/common/lwan-config.h"
@@ -8,12 +9,72 @@
 
 using namespace v8;
 
-void Method(const FunctionCallbackInfo<Value>& args) {
-  Isolate* isolate = Isolate::GetCurrent();
-  HandleScope scope(isolate);
+static inline char *TO_CHAR(Handle<Value> val) {
+    String::Utf8Value utf8(val->ToString());
 
-  lwan_t l;
-  lwan_config_t lwan_config = {
+    int len = utf8.length() + 1;
+    char *str = (char *) calloc(sizeof(char), len);
+    strncpy(str, *utf8, len);
+
+    return str;
+}
+
+Isolate* isolate = Isolate::GetCurrent();
+HandleScope scope(isolate);
+
+Persistent<Function> xcb;
+
+
+lwan_http_status_t execute (lwan_request_t *request __attribute__((unused)),
+      lwan_response_t *response,
+      void *data __attribute__((unused)))
+{
+    // printf("%s\n","SS1");
+    // Local<Value> c = { String::NewFromUtf8(isolate, "hello world") };
+    // printf("%s\n","SS2");
+
+
+    // Persistent<Value> argx = xcb->Call(isolate->GetCurrentContext()->Global(), 1, {} );
+    // printf("%s\n","SS3");
+
+    // //char* from = argx->ToString();
+
+
+    // char *x = TO_CHAR(c);
+    // printf("%s", x);
+    strbuf_set_static(response->buffer, "hello_world", sizeof("hello_world") - 1);
+    //free(x);
+
+    response->mime_type = "text/plain";
+    return HTTP_OK;
+
+};
+
+
+void Method(const FunctionCallbackInfo<Value>& args) {
+
+      Persistent<Value, NonCopyablePersistentTraits<Value>> persistent(isolate, args[0]);
+      Persistent<Value> handle = Persistent<Value>();
+      handle.Reset(v8::Isolate::GetCurrent(), args[0]);
+      xcb = Persistent<Function>::Cast(persistent);
+
+
+      //Persistent<Value> argv[argc] = { String::NewFromUtf8(isolate, "hello world") };
+      //cb->Call(isolate->GetCurrentContext()->Global(), argc, argv);
+
+
+
+
+    lwan_url_map_t url;
+    url.prefix = "/";
+    url.handler = execute;
+
+
+
+    static const lwan_url_map_t url_map[] = { url };
+
+    lwan_t l;
+    lwan_config_t lwan_config = {
         .listener = "localhost:3000",
         .keep_alive_timeout = 15,
         .quiet = false,
@@ -22,10 +83,10 @@ void Method(const FunctionCallbackInfo<Value>& args) {
         .n_threads = 0
     };
 
-  lwan_init_with_config(&l, &lwan_config);
-  lwan_main_loop(&l);
+    lwan_init_with_config(&l, &lwan_config);
+    lwan_set_url_map(&l, url_map);
+    lwan_main_loop(&l);
 
-  args.GetReturnValue().Set(String::NewFromUtf8(isolate, "world"));
 }
 
 void init(Handle<Object> exports) {

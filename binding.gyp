@@ -1,7 +1,7 @@
 {
   "targets": [
     {
-      "cflags_c": [ '-Wall', '-Wextra', '-Wshadow' ,'-Wconversion', '-std=gnu11', '-Wunused-variable' ],
+      "cflags_c": [ '-Wall', '-Wextra', '-Wwrite-string', '-Wshadow' ,'-Wconversion', '-std=gnu11', '-Wunused-variable' ],
       "target_name": "hook",
       "sources": [
         "hook.cc",
