@@ -51,12 +51,25 @@ lwan_http_status_t execute (lwan_request_t *request __attribute__((unused)),
 };
 
 
+// 1.run lwan
+// 2.mutate response lwan
+// 3.push v8 object as resposne lwan
+// 4.execute v8 function in c
+// 5.execute v8 function from node in c
+
+
+// 6.attach node function to event lwan event handler and execute on request
+// 7.return response from node function that is attached to event handler on request
+
+
+
+
 void Method(const FunctionCallbackInfo<Value>& args) {
 
-      Persistent<Value, NonCopyablePersistentTraits<Value>> persistent(isolate, args[0]);
-      Persistent<Value> handle = Persistent<Value>();
-      handle.Reset(v8::Isolate::GetCurrent(), args[0]);
-      xcb = Persistent<Function>::Cast(persistent);
+      // Persistent<Value, NonCopyablePersistentTraits<Value>> persistent(isolate, args[0]);
+      // Persistent<Value> handle = Persistent<Value>();
+      // handle.Reset(v8::Isolate::GetCurrent(), args[0]);
+      // xcb = Persistent<Function>::Cast(persistent);
 
 
       //Persistent<Value> argv[argc] = { String::NewFromUtf8(isolate, "hello world") };
