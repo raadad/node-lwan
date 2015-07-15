@@ -29,9 +29,9 @@ lwan_http_status_t execute (lwan_request_t *request __attribute__((unused)),
       lwan_response_t *response,
       void *data __attribute__((unused)))
 {
-    // printf("%s\n","SS1");
-    // Local<Value> c = { String::NewFromUtf8(isolate, "hello world") };
-    // printf("%s\n","SS2");
+    printf("%s\n","SS1");
+    Local<Value> c = { String::NewFromUtf8(isolate, "hello dawg"); }
+    printf("%s\n","SS2");
 
 
     // Persistent<Value> argx = xcb->Call(isolate->GetCurrentContext()->Global(), 1, {} );
@@ -40,9 +40,10 @@ lwan_http_status_t execute (lwan_request_t *request __attribute__((unused)),
     // //char* from = argx->ToString();
 
 
-    // char *x = TO_CHAR(c);
-    // printf("%s", x);
-    strbuf_set_static(response->buffer, "hello_world", sizeof("hello_world") - 1);
+    char *x = TO_CHAR(c);
+    printf("%s", x);
+    
+    strbuf_set_static(response->buffer, x, sizeof(x) - 1);
     //free(x);
 
     response->mime_type = "text/plain";
@@ -81,8 +82,6 @@ void Method(const FunctionCallbackInfo<Value>& args) {
     lwan_url_map_t url;
     url.prefix = "/";
     url.handler = execute;
-
-
 
     static const lwan_url_map_t url_map[] = { url };
 
