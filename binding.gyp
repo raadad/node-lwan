@@ -1,5 +1,4 @@
 {
-  'includes': [ 'deps/common-libzip.gypi' ],
   'variables': {
       'shared_libzip%':'true',
       'shared_libzip_includes%':'/usr/lib',
@@ -26,7 +25,8 @@
             }
             ],
         ],
-      "cflags_c": [ '-std=c++11', '-Wall', '-Wextra', '-Wshadow' ,'-Wconversion', '-std=gnu11', '-Wunused-variable' ],
+      "cflags_cc": ['-std=c++11'],
+      "cflags_c": [  '-Wall', '-Wextra', '-Wshadow' ,'-Wconversion', '-std=gnu11', '-Wunused-variable' ],
       "target_name": "hook",
       "sources": [
         "hook.cc",

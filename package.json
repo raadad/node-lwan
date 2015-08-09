@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/raadad/node-lwan/issues"
   },
-  "homepage": "https://github.com/raadad/node-lwan"
+  "homepage": "https://github.com/raadad/node-lwan",
+  "dependencies": {
+    "nan": "^2.0.0"
+  }
 }
