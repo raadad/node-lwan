@@ -27,9 +27,9 @@
         ],
       "cflags_cc": ['-std=c++11'],
       "cflags_c": [  '-Wall', '-Wextra', '-Wshadow' ,'-Wconversion', '-std=gnu11', '-Wunused-variable' ],
-      "target_name": "hook",
+      "target_name": "tread",
       "sources": [
-        "hook.cc",
+        "tread.cc",
         "./lwan/common/mime-types.h",
         "./lwan/common/base64.c",
         "./lwan/common/base64.h",

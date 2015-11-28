@@ -44,7 +44,13 @@ lwan_http_status_t Webserver::helloWorld(lwan_request_t *request, lwan_response_
     Handle<Value> argv[0] = {}; // Because our function does not need args (AT THIS POINT)
     Handle<Function> _cb = *cb;
 
-    _cb->Call(isolate->GetCurrentContext()->Global(), 0, argv); // WHAT WE NEED TO FIX!
+    //Handle<ObjectTemplate> global = bjectTemplate::New(isolate);
+  TryCatch try_catch;
+    Handle<Value> result = _cb->Call(_cb->CreationContext()->Global(), 0, argv);
+
+
+
+    //_cb->Call(isolate->GetCurrentContext()->Global(), 0, argv); // WHAT WE NEED TO FIX!
 
     // we should then get the result of the ^ function and then pass it to the thing below:
 
